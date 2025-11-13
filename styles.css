@@ -84,10 +84,13 @@ body {
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0) rotate(0deg);
         opacity: 0.05;
     }
+
     50% {
         transform: translateY(-30px) rotate(5deg);
         opacity: 0.08;
@@ -396,9 +399,12 @@ body {
 }
 
 @keyframes kanjiPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
@@ -492,6 +498,8 @@ body {
     font-weight: 600;
     position: relative;
     overflow: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(102, 126, 234, 0.2);
 }
 
 .reading-btn::before {
@@ -542,6 +550,8 @@ body {
     background: var(--success-gradient);
     color: white;
     border-color: var(--correct-color);
+    border-width: 4px;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), 0 4px 12px rgba(16, 185, 129, 0.4);
     animation: correctPulse 0.6s ease;
 }
 
@@ -558,6 +568,8 @@ body {
     background: var(--danger-gradient);
     color: white;
     border-color: var(--incorrect-color);
+    border-width: 4px;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3), 0 4px 12px rgba(239, 68, 68, 0.4);
     animation: shake 0.5s ease;
 }
 
@@ -574,8 +586,9 @@ body {
     background: linear-gradient(135deg, #fef3c7, #fde68a);
     color: #92400e;
     border-color: var(--missed-color);
+    border-width: 4px;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3), 0 0 20px rgba(245, 158, 11, 0.4);
     animation: missedPulse 0.8s ease;
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
 }
 
 .reading-btn.missed::after {
@@ -592,20 +605,47 @@ body {
 }
 
 @keyframes correctPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
 }
 
 @keyframes missedPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(245, 158, 11, 0); }
-    50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); }
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(245, 158, 11, 0);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+    }
 }
 
 .action-buttons {
@@ -720,6 +760,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -780,158 +821,158 @@ body {
     body {
         padding: 0;
     }
-    
+
     .container {
         padding: 0.75rem !important;
     }
-    
+
     /* Compact Header */
     .header-section {
         padding: 1rem;
         border-radius: 12px;
         margin-bottom: 0.75rem !important;
     }
-    
+
     .header-content {
         flex-direction: column;
         text-align: center;
         gap: 0.75rem;
     }
-    
+
     .logo-section {
         flex-direction: row;
         justify-content: center;
     }
-    
+
     .logo-section i {
         font-size: 2rem;
     }
-    
+
     .logo-section h1 {
         font-size: 1.3rem;
     }
-    
+
     .logo-section .subtitle {
         display: none;
     }
-    
+
     .header-actions {
         width: 100%;
         justify-content: center;
     }
-    
+
     .header-actions .btn {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
-    
+
     /* Compact Score Dashboard */
     .score-dashboard {
         margin-bottom: 0.75rem !important;
     }
-    
+
     .stat-card {
         padding: 0.75rem;
         flex-direction: row;
         text-align: left;
         gap: 0.75rem;
     }
-    
+
     .stat-icon {
         font-size: 1.75rem;
         width: 45px;
         height: 45px;
     }
-    
+
     .stat-label {
         font-size: 0.7rem;
     }
-    
+
     .stat-value {
         font-size: 1.2rem;
     }
-    
+
     .stat-percentage {
         font-size: 0.7rem;
     }
-    
+
     /* Compact Progress */
     .progress-section {
         padding: 1rem;
         margin-bottom: 0.75rem !important;
     }
-    
+
     .progress-info {
         font-size: 0.85rem;
     }
-    
+
     .progress-percentage {
         font-size: 1.2rem;
     }
-    
+
     .progress {
         height: 20px;
     }
-    
+
     /* Larger Kanji for Mobile */
     .kanji-display-card {
         margin-bottom: 0.75rem !important;
     }
-    
+
     .kanji-card-header {
         padding: 0.75rem 1rem;
     }
-    
+
     .kanji-number {
         font-size: 0.85rem;
     }
-    
+
     .difficulty-badge {
         font-size: 0.75rem;
         padding: 0.3rem 0.75rem;
     }
-    
+
     .kanji-display {
         padding: 2rem 1rem;
     }
-    
+
     .kanji-character {
         font-size: 7rem;
     }
-    
+
     .kanji-hint {
         font-size: 0.85rem;
         margin-top: 1rem;
     }
-    
+
     /* Mobile-Optimized Reading Sections */
     .reading-section {
         padding: 1rem;
         min-height: auto;
         margin-bottom: 0.75rem !important;
     }
-    
+
     .reading-header {
         margin-bottom: 1rem;
         padding-bottom: 0.75rem;
     }
-    
+
     .reading-title {
         font-size: 0.95rem;
         gap: 0.5rem;
     }
-    
+
     .reading-counter {
         font-size: 0.8rem;
         padding: 0.3rem 0.6rem;
     }
-    
+
     /* Larger Touch Targets for Mobile */
     .reading-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
-    
+
     .reading-btn {
         padding: 1.25rem 0.75rem;
         font-size: 1.15rem;
@@ -941,13 +982,19 @@ body {
         align-items: center;
         justify-content: center;
     }
-    
+
+    .reading-btn.correct,
+    .reading-btn.incorrect,
+    .reading-btn.missed {
+        border-width: 3px;
+    }
+
     .reading-btn::after {
         top: 3px;
         right: 5px;
         font-size: 1rem;
     }
-    
+
     /* Mobile Action Buttons */
     .action-buttons {
         padding: 1rem;
@@ -955,44 +1002,44 @@ body {
         gap: 0.75rem;
         margin-bottom: 0.75rem !important;
     }
-    
+
     .action-buttons .btn {
         width: 100%;
         padding: 1rem;
         font-size: 1rem;
         min-width: auto;
     }
-    
+
     /* Mobile Feedback */
     .result-feedback {
         padding: 1rem;
         margin-top: 0.75rem;
     }
-    
+
     .feedback-content {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
+
     .feedback-icon {
         font-size: 2.5rem;
     }
-    
+
     .feedback-message {
         font-size: 1rem;
         text-align: center;
     }
-    
+
     /* Modal Adjustments */
     .stats-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .stat-item .stat-number {
         font-size: 2rem;
     }
-    
+
     /* Hide floating background on mobile for performance */
     .kanji-float {
         display: none;
@@ -1004,22 +1051,22 @@ body {
     .kanji-character {
         font-size: 5.5rem;
     }
-    
+
     .reading-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
-    
+
     .reading-btn {
         padding: 1rem 0.5rem;
         font-size: 1rem;
         min-height: 55px;
     }
-    
+
     .stat-card {
         padding: 0.6rem;
     }
-    
+
     .stat-icon {
         width: 40px;
         height: 40px;
@@ -1032,18 +1079,18 @@ body {
     .kanji-display {
         padding: 1.5rem 1rem;
     }
-    
+
     .kanji-character {
         font-size: 4.5rem;
     }
-    
+
     .score-dashboard .row {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         gap: 0.5rem;
     }
-    
+
     .score-dashboard .col-6 {
         flex: 0 0 auto;
         min-width: 45%;
