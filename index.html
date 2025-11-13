@@ -3,64 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanji Quiz Application</title>
+    <title>漢字 Reading Quiz - Master Japanese Kanji</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="kanji-float">漢</div>
+        <div class="kanji-float">字</div>
+        <div class="kanji-float">学</div>
+        <div class="kanji-float">習</div>
+    </div>
+
     <div class="container py-4">
-        <!-- Header -->
+        <!-- Header with Stats -->
         <div class="header-section mb-4">
-            <h1 class="text-center mb-3">漢字 Reading Quiz</h1>
-            <button id="resetBtn" class="btn btn-outline-secondary">Reset Quiz</button>
-        </div>
-
-        <!-- Score Panels -->
-        <div class="row mb-4">
-            <div class="col-md-6 mb-3 mb-md-0">
-                <div class="score-panel onyomi-panel">
-                    <h3>音読み (On'yomi)</h3>
-                    <div class="score-display">
-                        <span id="onyomiScore">0</span> / <span id="onyomiTotal">0</span>
-                    </div>
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-language"></i>
+                    <h1>漢字 Reading Quiz</h1>
+                    <p class="subtitle">Master Japanese Kanji Readings</p>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="score-panel kunyomi-panel">
-                    <h3>訓読み (Kun'yomi)</h3>
-                    <div class="score-display">
-                        <span id="kunyomiScore">0</span> / <span id="kunyomiTotal">0</span>
-                    </div>
+                <div class="header-actions">
+                    <button id="statsBtn" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#statsModal">
+                        <i class="fas fa-chart-line"></i> Stats
+                    </button>
+                    <button id="resetBtn" class="btn btn-danger">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Progress -->
+        <!-- Score Dashboard -->
+        <div class="score-dashboard mb-4">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card onyomi-card">
+                        <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-label">音読み (On'yomi)</div>
+                            <div class="stat-value">
+                                <span id="onyomiScore">0</span>/<span id="onyomiTotal">0</span>
+                            </div>
+                            <div class="stat-percentage" id="onyomiPercent">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card kunyomi-card">
+                        <div class="stat-icon"><i class="fas fa-book"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-label">訓読み (Kun'yomi)</div>
+                            <div class="stat-value">
+                                <span id="kunyomiScore">0</span>/<span id="kunyomiTotal">0</span>
+                            </div>
+                            <div class="stat-percentage" id="kunyomiPercent">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card total-card">
+                        <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Score</div>
+                            <div class="stat-value" id="totalScore">0/0</div>
+                            <div class="stat-percentage" id="totalPercent">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card streak-card">
+                        <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                        <div class="stat-content">
+                            <div class="stat-label">Current Streak</div>
+                            <div class="stat-value" id="streakValue">0</div>
+                            <div class="stat-percentage">Perfect Answers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
         <div class="progress-section mb-4">
-            <div class="progress-text mb-2">
-                Progress: <span id="currentKanji">0</span> / <span id="totalKanji">0</span>
+            <div class="progress-header">
+                <div class="progress-info">
+                    <i class="fas fa-tasks"></i>
+                    <span>Progress: <strong><span id="currentKanji">0</span> / <span id="totalKanji">0</span></strong></span>
+                </div>
+                <div class="progress-percentage" id="progressPercent">0%</div>
             </div>
-            <div class="progress">
-                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+            <div class="progress-bar-container">
+                <div class="progress">
+                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Kanji Display -->
-        <div class="kanji-display mb-4">
-            <div id="kanjiChar" class="kanji-character">漢</div>
+        <!-- Kanji Display Card -->
+        <div class="kanji-display-card mb-4">
+            <div class="kanji-card-header">
+                <span class="kanji-number">Kanji #<span id="kanjiNumber">1</span></span>
+                <div class="difficulty-badge" id="difficultyBadge">
+                    <i class="fas fa-star"></i> <span id="difficultyText">Standard</span>
+                </div>
+            </div>
+            <div class="kanji-display">
+                <div id="kanjiChar" class="kanji-character">漢</div>
+                <div class="kanji-hint" id="kanjiHint">
+                    <i class="fas fa-lightbulb"></i> Select all correct readings
+                </div>
+            </div>
         </div>
 
         <!-- Reading Selection Grids -->
-        <div class="row mb-4">
-            <div class="col-md-6 mb-3 mb-md-0">
+        <div class="row g-4 mb-4">
+            <div class="col-lg-6">
                 <div class="reading-section onyomi-section">
-                    <h4 class="reading-title">Select On'yomi Readings:</h4>
+                    <div class="reading-header">
+                        <div class="reading-title">
+                            <i class="fas fa-circle"></i>
+                            <span>音読み (On'yomi)</span>
+                        </div>
+                        <div class="reading-counter">
+                            <span id="onyomiSelected">0</span> selected
+                        </div>
+                    </div>
                     <div id="onyomiGrid" class="reading-grid"></div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <div class="reading-section kunyomi-section">
-                    <h4 class="reading-title">Select Kun'yomi Readings:</h4>
+                    <div class="reading-header">
+                        <div class="reading-title">
+                            <i class="fas fa-circle"></i>
+                            <span>訓読み (Kun'yomi)</span>
+                        </div>
+                        <div class="reading-counter">
+                            <span id="kunyomiSelected">0</span> selected
+                        </div>
+                    </div>
                     <div id="kunyomiGrid" class="reading-grid"></div>
                 </div>
             </div>
@@ -68,11 +153,63 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-            <button id="checkBtn" class="btn btn-primary btn-lg">Check Answers</button>
-            <button id="nextBtn" class="btn btn-success btn-lg" style="display: none;">Next Kanji</button>
+            <button id="checkBtn" class="btn btn-check">
+                <i class="fas fa-check-circle"></i> Check Answers
+            </button>
+            <button id="nextBtn" class="btn btn-next" style="display: none;">
+                <i class="fas fa-arrow-right"></i> Next Kanji
+            </button>
+            <button id="skipBtn" class="btn btn-skip">
+                <i class="fas fa-forward"></i> Skip
+            </button>
+        </div>
+
+        <!-- Result Feedback -->
+        <div id="resultFeedback" class="result-feedback" style="display: none;">
+            <div class="feedback-content">
+                <div class="feedback-icon" id="feedbackIcon"></div>
+                <div class="feedback-message" id="feedbackMessage"></div>
+            </div>
         </div>
     </div>
 
+    <!-- Stats Modal -->
+    <div class="modal fade" id="statsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-chart-bar"></i> Quiz Statistics</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Total Kanji Completed</div>
+                            <div class="stat-number" id="modalKanjiCompleted">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Overall Accuracy</div>
+                            <div class="stat-number" id="modalAccuracy">0%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Best Streak</div>
+                            <div class="stat-number" id="modalBestStreak">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">On'yomi Accuracy</div>
+                            <div class="stat-number" id="modalOnyomiAcc">0%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Kun'yomi Accuracy</div>
+                            <div class="stat-number" id="modalKunyomiAcc">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="kanji-data.js"></script>
     <script src="app.js"></script>
 </body>
