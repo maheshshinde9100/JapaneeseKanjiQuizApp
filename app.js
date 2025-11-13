@@ -101,7 +101,24 @@ class KanjiQuiz {
             btn.dataset.reading = reading;
             btn.dataset.type = type;
 
-            btn.addEventListener('click', () => this.toggleSelection(btn, type, reading));
+            // Add both click and touch events for better mobile support
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleSelection(btn, type, reading);
+            });
+
+            // Prevent double-tap zoom on mobile
+            let touchTimeout;
+            btn.addEventListener('touchstart', (e) => {
+                clearTimeout(touchTimeout);
+            });
+
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                touchTimeout = setTimeout(() => {
+                    this.toggleSelection(btn, type, reading);
+                }, 10);
+            });
 
             grid.appendChild(btn);
         });
