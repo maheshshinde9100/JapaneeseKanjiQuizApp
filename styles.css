@@ -601,6 +601,26 @@ body {
     font-weight: 700;
 }
 
+/* Preview feedback styles for immediate selection feedback */
+.reading-btn.preview-correct {
+    border: 3px solid #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+}
+
+.reading-btn.preview-incorrect {
+    border: 3px solid #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+    animation: subtleShake 0.3s ease;
+}
+
+@keyframes subtleShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
 .reading-btn:disabled {
     cursor: not-allowed;
 }

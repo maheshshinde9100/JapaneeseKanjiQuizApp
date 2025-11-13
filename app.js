@@ -23,6 +23,7 @@ class KanjiQuiz {
         this.kunyomiGrid = document.getElementById('kunyomiGrid');
         this.checkBtn = document.getElementById('checkBtn');
         this.nextBtn = document.getElementById('nextBtn');
+        this.nextQuestionBtn = document.getElementById('nextQuestionBtn');
         this.skipBtn = document.getElementById('skipBtn');
         this.resetBtn = document.getElementById('resetBtn');
         this.statsBtn = document.getElementById('statsBtn');
@@ -50,6 +51,7 @@ class KanjiQuiz {
     attachEventListeners() {
         this.checkBtn.addEventListener('click', () => this.checkAnswers());
         this.nextBtn.addEventListener('click', () => this.nextKanji());
+        this.nextQuestionBtn.addEventListener('click', () => this.nextKanji());
         this.skipBtn.addEventListener('click', () => this.skipKanji());
         this.resetBtn.addEventListener('click', () => this.resetQuiz());
         this.statsBtn.addEventListener('click', () => this.updateStatsModal());
@@ -159,13 +161,27 @@ class KanjiQuiz {
         if (this.isChecked) return;
 
         const selectedSet = type === 'onyomi' ? this.selectedOnyomi : this.selectedKunyomi;
+        const current = this.kanjiList[this.currentIndex];
+        const correctReadings = type === 'onyomi' ? current.onyomi : current.kunyomi;
+        const isCorrectReading = correctReadings.includes(reading);
 
         if (selectedSet.has(reading)) {
             selectedSet.delete(reading);
             btn.classList.remove('selected');
+            btn.classList.remove('preview-correct');
+            btn.classList.remove('preview-incorrect');
         } else {
             selectedSet.add(reading);
             btn.classList.add('selected');
+
+            // Add immediate visual feedback
+            if (isCorrectReading) {
+                btn.classList.add('preview-correct');
+                btn.classList.remove('preview-incorrect');
+            } else {
+                btn.classList.add('preview-incorrect');
+                btn.classList.remove('preview-correct');
+            }
         }
 
         this.updateSelectionCounters();
@@ -219,6 +235,9 @@ class KanjiQuiz {
             const isSelected = selected.has(reading);
 
             btn.disabled = true;
+
+            // Clear preview classes
+            btn.classList.remove('preview-correct', 'preview-incorrect');
 
             if (isSelected && isCorrect) {
                 btn.classList.add('correct');
